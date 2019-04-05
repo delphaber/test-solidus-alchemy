@@ -51,6 +51,15 @@ Spree::Frontend::Config.configure do |config|
 end
 
 Spree::Backend::Config.configure do |config|
+  # AlchemyCMS admin tabs
+  config.menu_items << config.class::MenuItem.new(
+    [:pages, :sites, :languages, :tags, :users, :pictures, :attachments],
+    'copy',
+    label: :cms,
+    condition: -> { can?(:index, :alchemy_admin_dashboard) },
+    partial: 'spree/admin/shared/alchemy_sub_menu',
+    url: '/admin/pages'
+  )
   config.locale = 'en'
 end
 
